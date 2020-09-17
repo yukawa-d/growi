@@ -59,7 +59,7 @@ const PageList = (props) => {
 
   return (
     <div className="page-list-container-create">
-      <ul className="page-list-ul page-list-ul-flat mb-4">
+      <ul className="page-list-ul page-list-ul-flat mb-4 ml-n4">
         {pageList}
       </ul>
       <PaginationWrapper
