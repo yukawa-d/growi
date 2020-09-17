@@ -52,14 +52,14 @@ const PageList = (props) => {
   }
 
   const pageList = pages.map(page => (
-    <li key={page._id}>
+    <li key={page._id} className="mb-2">
       <Page page={page} />
     </li>
   ));
 
   return (
     <div className="page-list-container-create">
-      <ul className="page-list-ul page-list-ul-flat mb-3">
+      <ul className="page-list-ul page-list-ul-flat mb-4">
         {pageList}
       </ul>
       <PaginationWrapper
