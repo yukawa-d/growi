@@ -121,7 +121,7 @@ const PageAccessoriesModal = (props) => {
           </Nav>
           <hr id="grw-nav-slide-hr" className="my-0" style={{ width: `${sliderWidth}%`, marginLeft: `${sliderMarginLeft}%` }} />
           <hr className="modal-split-hr m-0" />
-          <TabContent activeTab={activeTab}>
+          <TabContent activeTab={activeTab} className="tab-content-container p-5">
             <TabPane tabId="pagelist">
               {pageAccessoriesContainer.state.activeComponents.has('pagelist') && <PageList />}
             </TabPane>
