@@ -16,6 +16,7 @@ $color-nav-tabs-link-active: $gray-600 !default;
 $bordercolor-nav-tabs-active: $bordercolor-nav-tabs $bordercolor-nav-tabs $bgcolor-global !default;
 $bordercolor-toc: $bordercolor-nav-tabs !default;
 $color-seen-user: #549c79 !default;
+$border-color-weak: $glay-300 !default;
 
 // override bootstrap variables
 $body-bg: $bgcolor-global;
@@ -28,6 +29,9 @@ $nav-tabs-link-hover-border-color: $bordercolor-nav-tabs-hover;
 $nav-tabs-link-active-color: $color-nav-tabs-link-active;
 $nav-tabs-link-active-bg: $bgcolor-global;
 $nav-tabs-link-active-border-color: $bordercolor-nav-tabs-active;
+
+$border-color: $glay-400;
+//
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -235,11 +239,6 @@ pre:not(.hljs):not(.CodeMirror-line) {
   fill: $color-editor-icons;
 }
 
-// page preview button in link form
-.btn-page-preview svg {
-  fill: white;
-}
-
 /*
  * Modal
  */
@@ -288,11 +287,6 @@ pre:not(.hljs):not(.CodeMirror-line) {
 .grw-page-accessories-modal {
   .nav-title {
     color: $color-link;
-  }
-  .modal-header {
-    button.close {
-      color: $secondary;
-    }
   }
   .nav-link svg {
     fill: $color-link;
