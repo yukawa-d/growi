@@ -31,7 +31,12 @@ $nav-tabs-link-active-bg: $bgcolor-global;
 $nav-tabs-link-active-border-color: $bordercolor-nav-tabs-active;
 
 $border-color: $glay-400;
-//
+$hr-border-color: ;
+$input-border-color: $border-color;
+$nav-tabs-border-color: $border-color;
+$dropdown-border-color: $border-color;
+$card-border-color: $border-color;
+$popover-border-color: ;
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
