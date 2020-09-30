@@ -14,9 +14,7 @@ $bordercolor-nav-tabs: $gray-300 !default;
 $bordercolor-nav-tabs-hover: $gray-200 $gray-200 $bordercolor-nav-tabs !default;
 $color-nav-tabs-link-active: $gray-600 !default;
 $bordercolor-nav-tabs-active: $bordercolor-nav-tabs $bordercolor-nav-tabs $bgcolor-global !default;
-$bordercolor-toc: $bordercolor-nav-tabs !default;
 $color-seen-user: #549c79 !default;
-$border-color-weak: $glay-300 !default;
 
 // override bootstrap variables
 $body-bg: $bgcolor-global;
@@ -29,14 +27,6 @@ $nav-tabs-link-hover-border-color: $bordercolor-nav-tabs-hover;
 $nav-tabs-link-active-color: $color-nav-tabs-link-active;
 $nav-tabs-link-active-bg: $bgcolor-global;
 $nav-tabs-link-active-border-color: $bordercolor-nav-tabs-active;
-
-$border-color: $glay-400;
-$hr-border-color: ;
-$input-border-color: $border-color;
-$nav-tabs-border-color: $border-color;
-$dropdown-border-color: $border-color;
-$card-border-color: $border-color;
-$popover-border-color: ;
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -268,27 +258,6 @@ pre:not(.hljs):not(.CodeMirror-line) {
   }
 }
 
-.top-of-table-contents {
-  border-color: $bordercolor-toc;
-
-  .grw-btn-top-of-table {
-    fill: $color-link;
-  }
-  .grw-seen-user-list {
-    border-color: $bordercolor-toc;
-
-    .btn {
-      color: $color-seen-user;
-      &:active {
-        color: $color-seen-user;
-      }
-      .footstamp-icon {
-        fill: $color-seen-user;
-      }
-    }
-  }
-}
-
 .grw-page-accessories-modal {
   .nav-title {
     color: $color-link;
@@ -488,5 +457,22 @@ mark.rbt-highlight-text {
 
   .btn-scroll-to-top {
     fill: $gray-900;
+  }
+}
+
+.top-of-table-contents {
+  .grw-btn-top-of-table {
+    fill: $color-link;
+  }
+  .grw-seen-user-list {
+    .btn {
+      color: $success;
+      &:active {
+        color: $success;
+      }
+      .footstamp-icon {
+        fill: $success;
+      }
+    }
   }
 }

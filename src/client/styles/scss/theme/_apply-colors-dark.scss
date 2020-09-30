@@ -315,3 +315,11 @@ body.on-edit {
     background-color: $bgcolor-tags;
   }
 }
+
+.top-of-table-contents {
+  border-color: $border-color;
+
+  .grw-seen-user-list {
+    border-color: $border-color;
+  }
+}

@@ -14,14 +14,23 @@ $bgcolor-table-hover: rgba(black, 0.075) !default;
 $bgcolor-sidebar-list-group: $bgcolor-list !default;
 $color-tags: $gray-500 !default;
 $bgcolor-tags: $gray-200 !default;
+$border-color-weak: $gray-300 !default;
 
 // override bootstrap variables
-$border-color: $gray-200;
+$border-color: blue;
 $table-color: $color-table;
 $table-bg: $bgcolor-table;
 $table-border-color: $border-color-table;
 $table-hover-color: $color-table-hover;
 $table-hover-bg: $bgcolor-table-hover;
+
+//new border
+$hr-border-color: $border-color;
+$input-border-color: $border-color;
+$nav-tabs-border-color: $border-color;
+$dropdown-border-color: $border-color;
+$card-border-color: $border-color;
+$popover-border-color: $border-color;
 
 @import 'reboot-bootstrap-border-colors';
 @import 'reboot-bootstrap-tables';
@@ -235,5 +244,13 @@ $table-hover-bg: $bgcolor-table-hover;
   .grw-tag-label {
     color: $color-tags;
     background-color: $bgcolor-tags;
+  }
+}
+
+.top-of-table-contents {
+  border-color: $border-color;
+
+  .grw-seen-user-list {
+    border-color: $border-color;
   }
 }
