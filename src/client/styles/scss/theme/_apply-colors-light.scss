@@ -17,7 +17,7 @@ $bgcolor-tags: $gray-200 !default;
 $border-color-weak: $gray-300 !default;
 
 // override bootstrap variables
-$border-color: blue;
+$border-color: $gray-300;
 $table-color: $color-table;
 $table-bg: $bgcolor-table;
 $table-border-color: $border-color-table;
