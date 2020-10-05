@@ -24,7 +24,7 @@ $gray-800: $dark !default;
 $gray-900: darken($dark, 5%) !default;
 $grays: ("50": $gray-50) !default;
 $red: #ff0a54 !default;
-
+$border-color: $danger;
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
