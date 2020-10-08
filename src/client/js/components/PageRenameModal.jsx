@@ -14,6 +14,7 @@ import AppContainer from '../services/AppContainer';
 import PageContainer from '../services/PageContainer';
 import ApiErrorMessageList from './PageManagement/ApiErrorMessageList';
 import ComparePathsTable from './ComparePathsTable';
+import DuplicatedPathsTable from './DuplicatedPathsTable';
 
 const PageRenameModal = (props) => {
   const {
@@ -160,6 +161,7 @@ const PageRenameModal = (props) => {
               { t('modal_duplicate.label.Duplicate without exist path') }
             </label>
           </div>
+          {isRenameRecursively && <DuplicatedPathsTable subordinatedPages={subordinatedPages} newPagePath={pageNameInput} />}
           {isRenameRecursively && <ComparePathsTable subordinatedPages={subordinatedPages} newPagePath={pageNameInput} />}
         </div>
 

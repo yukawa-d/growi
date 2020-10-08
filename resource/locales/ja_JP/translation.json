@@ -148,6 +148,7 @@
   "Recent Changes": "最新の変更",
   "original_path":"元のパス",
   "new_path":"新しいパス",
+  "duplicated_path":"重複しているパス",
   "personal_dropdown": {
     "home": "ホーム",
     "settings": "設定",
