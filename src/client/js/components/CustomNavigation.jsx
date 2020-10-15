@@ -8,14 +8,10 @@ import PageAccessoriesContainer from '../services/PageAccessoriesContainer';
 
 const CustomNavigation = (props) => {
   const [activeTab, setActiveTab] = useState('');
-  const [activeComponents] = useState(new Set(['']));
+  const [activeComponents, setActiveComponents] = useState(new Set(['']));
   // [TODO: set default active tab by gw4079]
   const [sliderWidth, setSliderWidth] = useState(null);
   const [sliderMarginLeft, setSliderMarginLeft] = useState(null);
-
-  function switchActiveTab(activeTab) {
-    setActiveTab(activeTab);
-  }
 
   // Might make this dynamic for px, %, pt, em
   function getPercentage(min, max) {
@@ -48,6 +44,11 @@ const CustomNavigation = (props) => {
     setSliderMarginLeft(marginLeft);
 
   }, [activeTab]);
+
+
+  function switchActiveTab(activeTab) {
+    setActiveTab(activeTab);
+  }
 
   function renderNomalCustomNavigation() {
     return (
@@ -87,6 +88,8 @@ const CustomNavigation = (props) => {
 
   function renderModalCustomNavigation() {
     const { pageAccessoriesContainer } = props;
+    const { switchActiveTab } = pageAccessoriesContainer;
+    const { activeTab } = pageAccessoriesContainer.state;
     return (
       <>
         <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
