@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  Modal, ModalBody, ModalHeader, Nav, NavItem, NavLink, TabContent, TabPane,
-} from 'reactstrap';
 
 import { withTranslation } from 'react-i18next';
 
@@ -26,12 +22,6 @@ import CustomNavigation from './CustomNavigation';
 
 const PageAccessoriesModal = (props) => {
   const { t, pageAccessoriesContainer } = props;
-  const { switchActiveTab } = pageAccessoriesContainer;
-  const { activeTab } = pageAccessoriesContainer.state;
-
-  const [sliderWidth, setSliderWidth] = useState(null);
-  const [sliderMarginLeft, setSliderMarginLeft] = useState(null);
-
 
   const navTabMapping = {
     pagelist: {
