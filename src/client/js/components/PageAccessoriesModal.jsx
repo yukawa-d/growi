@@ -32,12 +32,12 @@ const PageAccessoriesModal = (props) => {
   const [sliderWidth, setSliderWidth] = useState(null);
   const [sliderMarginLeft, setSliderMarginLeft] = useState(null);
 
-  function closeModalHandler() {
-    if (props.onClose == null) {
-      return;
-    }
-    props.onClose();
-  }
+  // function closeModalHandler() {
+  //   if (props.onClose == null) {
+  //     return;
+  //   }
+  //   props.onClose();
+  // }
 
   // Might make this dynamic for px, %, pt, em
   // function getPercentage(min, max) {
@@ -117,7 +117,7 @@ const PageAccessoriesModal = (props) => {
   return (
     <React.Fragment>
       <div className="grw-trash-page">
-        <CustomNavigation navTabMapping={navTabMapping} />
+        <CustomNavigation navTabMapping={navTabMapping} isOpen={props.isOpen} onClose={props.onClose} />
       </div>
       {/* <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
         <ModalHeader className="p-0" toggle={closeModalHandler}>
