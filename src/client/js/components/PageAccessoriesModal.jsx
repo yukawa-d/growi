@@ -21,34 +21,8 @@ import PageList from './PageList';
 import PageHistory from './PageHistory';
 import ShareLink from './ShareLink/ShareLink';
 
+import CustomNavigation from './CustomNavigation';
 
-const navTabMapping = {
-  pagelist: {
-    icon: <PageListIcon />,
-    i18n: 'page_list',
-    index: 0,
-  },
-  timeline:  {
-    icon: <TimeLineIcon />,
-    i18n: 'Timeline View',
-    index: 1,
-  },
-  pageHistory: {
-    icon: <RecentChangesIcon />,
-    i18n: 'History',
-    index: 2,
-  },
-  attachment: {
-    icon: <AttachmentIcon />,
-    i18n: 'attachment_data',
-    index: 3,
-  },
-  shareLink: {
-    icon: <ShareLinkIcon />,
-    i18n: 'share_links.share_link_management',
-    index: 4,
-  },
-};
 
 const PageAccessoriesModal = (props) => {
   const { t, pageAccessoriesContainer } = props;
@@ -66,43 +40,86 @@ const PageAccessoriesModal = (props) => {
   }
 
   // Might make this dynamic for px, %, pt, em
-  function getPercentage(min, max) {
-    return min / max * 100;
-  }
+  // function getPercentage(min, max) {
+  //   return min / max * 100;
+  // }
 
-  useEffect(() => {
-    if (activeTab === '') {
-      return;
-    }
+  // useEffect(() => {
+  //   if (activeTab === '') {
+  //     return;
+  //   }
 
-    const navTitle = document.getElementById('nav-title');
-    const navTabs = document.querySelectorAll('li.nav-link');
+  //   const navTitle = document.getElementById('nav-title');
+  //   const navTabs = document.querySelectorAll('li.nav-link');
 
-    if (navTitle == null || navTabs == null) {
-      return;
-    }
+  //   if (navTitle == null || navTabs == null) {
+  //     return;
+  //   }
 
-    let tempML = 0;
+  //   let tempML = 0;
 
-    const styles = [].map.call(navTabs, (el) => {
-      const width = getPercentage(el.offsetWidth, navTitle.offsetWidth);
-      const marginLeft = tempML;
-      tempML += width;
-      return { width, marginLeft };
-    });
+  //   const styles = [].map.call(navTabs, (el) => {
+  //     const width = getPercentage(el.offsetWidth, navTitle.offsetWidth);
+  //     const marginLeft = tempML;
+  //     tempML += width;
+  //     return { width, marginLeft };
+  //   });
 
-    const { width, marginLeft } = styles[navTabMapping[activeTab].index];
+  //   const { width, marginLeft } = styles[navTabMapping[activeTab].index];
 
-    setSliderWidth(width);
-    setSliderMarginLeft(marginLeft);
+  //   setSliderWidth(width);
+  //   setSliderMarginLeft(marginLeft);
 
-  }, [activeTab]);
+  // }, [activeTab]);
+
+  const navTabMapping = {
+    pagelist: {
+      icon: <PageListIcon />,
+      i18n: t('page_list'),
+      tabContent: <PageList />,
+      index: 0,
+    },
+    timeline:  {
+      icon: <TimeLineIcon />,
+      i18n: t('Timeline View'),
+      tabContent: <PageTimeline />,
+      index: 1,
+    },
+    pageHistory: {
+      icon: <RecentChangesIcon />,
+      i18n: t('History'),
+      tabContent: <PageHistory />,
+      index: 2,
+    },
+    attachment: {
+      icon: <AttachmentIcon />,
+      i18n: t('attachment_data'),
+      tabContent: <PageAttachment />,
+      index: 3,
+    },
+    shareLink: {
+      icon: <ShareLinkIcon />,
+      i18n: t('share_links.share_link_management'),
+      tabContent: <ShareLink />,
+      index: 4,
+    },
+  };
+
+  // pagelist: {
+  //   icon: <PageListIcon />,
+  //   i18n: t('page_list'),
+  //   // [TODO: show trash page list by gw4064]
+  //   tabContent: t('Trash page list'),
+  //   index: 0,
+  // },
 
 
   return (
     <React.Fragment>
-      <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
-        {/* [TODO: insert a modal header and move nav tabs there  by gw-3890] */}
+      <div className="grw-trash-page">
+        <CustomNavigation navTabMapping={navTabMapping} />
+      </div>
+      {/* <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
         <ModalHeader className="p-0" toggle={closeModalHandler}>
           <Nav className="nav-title" id="nav-title">
             {Object.entries(navTabMapping).map(([key, value]) => {
@@ -139,7 +156,7 @@ const PageAccessoriesModal = (props) => {
             </TabPane>
           </TabContent>
         </ModalBody>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 };

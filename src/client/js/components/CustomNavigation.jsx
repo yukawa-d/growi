@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Nav, NavItem, NavLink, TabContent, TabPane,
+  Nav, NavItem, NavLink, TabContent, TabPane, Modal, ModalBody, ModalHeader,
 } from 'reactstrap';
-
+import { withUnstatedContainers } from './UnstatedUtils';
+import PageAccessoriesContainer from '../services/PageAccessoriesContainer';
 
 const CustomNavigation = (props) => {
   const [activeTab, setActiveTab] = useState('');
@@ -48,7 +49,7 @@ const CustomNavigation = (props) => {
 
   }, [activeTab]);
 
-  function renderNomalNavigationBar() {
+  function renderNomalCustomNavigation() {
     return (
       <>
         <Nav className="nav-title grw-custom-navbar" id="grw-custom-navbar">
@@ -77,16 +78,76 @@ const CustomNavigation = (props) => {
     );
   }
 
+  function renderModalCustomNavigation() {
+    const { pageAccessoriesContainer } = props;
+    return (
+      <>
+        {/* <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
+          <ModalHeader className="p-0" toggle={closeModalHandler}> */}
+        <Nav className="nav-title" id="nav-title">
+          {Object.entries(props.navTabMapping).map(([key, value]) => {
+              return (
+                <NavItem key={key} type="button" className={`p-0 nav-link ${activeTab === key && 'active'}`}>
+                  <NavLink onClick={() => { switchActiveTab(key) }}>
+                    {value.icon}
+                    {value.i18n}
+                  </NavLink>
+                </NavItem>
+              );
+            })}
+        </Nav>
+        <hr className="my-0 grw-nav-slide-hr border-none" style={{ width: `${sliderWidth}%`, marginLeft: `${sliderMarginLeft}%` }} />
+        {/* </ModalHeader> */}
+        <ModalBody className="overflow-auto grw-modal-body-style p-0">
+
+          <TabContent activeTab={activeTab} className="p-5">
+            {Object.entries(props.navTabMapping).map(([key, value]) => {
+              return (
+                <TabPane tabId={key}>
+                  {pageAccessoriesContainer.state.activeComponents.has(key) && value.tabContent}
+                </TabPane>
+              );
+            })}
+            {/* <TabPane tabId="pagelist">
+              {pageAccessoriesContainer.state.activeComponents.has('pagelist') && <PageList />}
+            </TabPane>
+            <TabPane tabId="timeline">
+              {pageAccessoriesContainer.state.activeComponents.has('timeline') && <PageTimeline /> }
+            </TabPane>
+            <TabPane tabId="pageHistory">
+              <div className="overflow-auto">
+                {pageAccessoriesContainer.state.activeComponents.has('pageHistory') && <PageHistory /> }
+              </div>
+            </TabPane>
+            <TabPane tabId="attachment">
+              {pageAccessoriesContainer.state.activeComponents.has('attachment') && <PageAttachment />}
+            </TabPane>
+            <TabPane tabId="shareLink">
+              {pageAccessoriesContainer.state.activeComponents.has('shareLink') && <ShareLink />}
+            </TabPane> */}
+          </TabContent>
+        </ModalBody>
+        {/* </Modal> */}
+
+      </>
+    );
+
+  }
+
 
   return (
     <>
-      {renderNomalNavigationBar()}
+      {/* {renderNomalCustomNavigation()} */}
+      {renderModalCustomNavigation()}
     </>
   );
 };
 
+const CustomNavigationWrapper = withUnstatedContainers(CustomNavigation, [PageAccessoriesContainer]);
+
 CustomNavigation.propTypes = {
+  pageAccessoriesContainer: PropTypes.instanceOf(PageAccessoriesContainer).isRequired,
   navTabMapping: PropTypes.object,
 };
 
-export default CustomNavigation;
+export default CustomNavigationWrapper;
