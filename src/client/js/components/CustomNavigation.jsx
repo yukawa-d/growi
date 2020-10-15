@@ -7,6 +7,7 @@ import {
 
 const CustomNavigation = (props) => {
   const [activeTab, setActiveTab] = useState('');
+  const [activeComponents] = useState(new Set(['']));
   // [TODO: set default active tab by gw4079]
   const [sliderWidth, setSliderWidth] = useState(null);
   const [sliderMarginLeft, setSliderMarginLeft] = useState(null);
@@ -47,32 +48,40 @@ const CustomNavigation = (props) => {
 
   }, [activeTab]);
 
+  function renderNomalNavigationBar() {
+    return (
+      <>
+        <Nav className="nav-title grw-custom-navbar" id="grw-custom-navbar">
+          {Object.entries(props.navTabMapping).map(([key, value]) => {
+            return (
+              <NavItem key={key} type="button" className={`p-0 grw-custom-navtab ${activeTab === key && 'active'}`}>
+                <NavLink onClick={() => { switchActiveTab(key) }}>
+                  {value.icon}
+                  {value.i18n}
+                </NavLink>
+              </NavItem>
+            );
+          })}
+        </Nav>
+        <hr className="my-0 grw-nav-slide-hr border-none" style={{ width: `${sliderWidth}%`, marginLeft: `${sliderMarginLeft}%` }} />
+        <TabContent activeTab={activeTab} className="p-5">
+          {Object.entries(props.navTabMapping).map(([key, value]) => {
+            return (
+              <TabPane key={key} tabId={key}>
+                {value.tabContent}
+              </TabPane>
+            );
+          })}
+        </TabContent>
+      </>
+    );
+  }
+
 
   return (
-    <React.Fragment>
-      <Nav className="nav-title grw-custom-navbar" id="grw-custom-navbar">
-        {Object.entries(props.navTabMapping).map(([key, value]) => {
-          return (
-            <NavItem key={key} type="button" className={`p-0 grw-custom-navtab ${activeTab === key && 'active'}`}>
-              <NavLink onClick={() => { switchActiveTab(key) }}>
-                {value.icon}
-                {value.i18n}
-              </NavLink>
-            </NavItem>
-          );
-        })}
-      </Nav>
-      <hr className="my-0 grw-nav-slide-hr border-none" style={{ width: `${sliderWidth}%`, marginLeft: `${sliderMarginLeft}%` }} />
-      <TabContent activeTab={activeTab} className="p-5">
-        {Object.entries(props.navTabMapping).map(([key, value]) => {
-          return (
-            <TabPane key={key} tabId={key}>
-              {value.tabContent}
-            </TabPane>
-          );
-        })}
-      </TabContent>
-    </React.Fragment>
+    <>
+      {renderNomalNavigationBar()}
+    </>
   );
 };
 
