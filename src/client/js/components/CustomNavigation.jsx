@@ -118,23 +118,6 @@ const CustomNavigation = (props) => {
                   </TabPane>
                 );
               })}
-              {/* <TabPane tabId="pagelist">
-                {pageAccessoriesContainer.state.activeComponents.has('pagelist') && <PageList />}
-              </TabPane>
-              <TabPane tabId="timeline">
-                {pageAccessoriesContainer.state.activeComponents.has('timeline') && <PageTimeline /> }
-              </TabPane>
-              <TabPane tabId="pageHistory">
-                <div className="overflow-auto">
-                  {pageAccessoriesContainer.state.activeComponents.has('pageHistory') && <PageHistory /> }
-                </div>
-              </TabPane>
-              <TabPane tabId="attachment">
-                {pageAccessoriesContainer.state.activeComponents.has('attachment') && <PageAttachment />}
-              </TabPane>
-              <TabPane tabId="shareLink">
-                {pageAccessoriesContainer.state.activeComponents.has('shareLink') && <ShareLink />}
-              </TabPane> */}
             </TabContent>
           </ModalBody>
         </Modal>
