@@ -59,7 +59,7 @@ const PageAccessoriesModal = (props) => {
 
   return (
     <React.Fragment>
-      <div className="grw-trash-page">
+      <div className="grw-custom-navigation">
         <CustomNavigation navTabMapping={navTabMapping} isOpen={props.isOpen} onClose={props.onClose} />
       </div>
     </React.Fragment>
