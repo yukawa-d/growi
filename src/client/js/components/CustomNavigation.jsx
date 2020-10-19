@@ -46,11 +46,10 @@ const CustomNavigation = (props) => {
   }, [activeTab]);
 
 
-  function switchActiveTab(activeTab) {
-    setActiveTab(activeTab);
-  }
-
   function renderNomalCustomNavigation() {
+    function switchActiveTab(activeTab) {
+      setActiveTab(activeTab);
+    }
     return (
       <>
         <Nav className="nav-title grw-custom-navbar" id="grw-custom-navbar">
@@ -90,6 +89,7 @@ const CustomNavigation = (props) => {
     const { pageAccessoriesContainer } = props;
     const { switchActiveTab } = pageAccessoriesContainer;
     const { activeTab } = pageAccessoriesContainer.state;
+    console.log([...activeComponents, activeTab]);
     return (
       <>
         <Modal size="xl" isOpen={props.isOpen} toggle={closeModalHandler} className="grw-page-accessories-modal">
@@ -114,7 +114,7 @@ const CustomNavigation = (props) => {
               {Object.entries(props.navTabMapping).map(([key, value]) => {
                 return (
                   <TabPane tabId={key}>
-                    {pageAccessoriesContainer.state.activeComponents.has(key) && value.tabContent}
+                    {activeComponents.has(key) && value.tabContent}
                   </TabPane>
                 );
               })}
