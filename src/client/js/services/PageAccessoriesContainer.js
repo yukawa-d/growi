@@ -16,7 +16,7 @@ export default class PageAccessoriesContainer extends Container {
       isPageAccessoriesModalShown: false,
       activeTab: '',
       // Prevent unnecessary rendering
-      activeComponents: new Set(['']),
+      // activeComponents: new Set(['']),
     };
     this.openPageAccessoriesModal = this.openPageAccessoriesModal.bind(this);
     this.closePageAccessoriesModal = this.closePageAccessoriesModal.bind(this);
@@ -47,8 +47,10 @@ export default class PageAccessoriesContainer extends Container {
 
   switchActiveTab(activeTab) {
     this.setState({
-      activeTab, activeComponents: this.state.activeComponents.add(activeTab),
+      activeTab,
+      // activeComponents: this.state.activeComponents.add(activeTab),
     });
+    console.log(`activeTab1 = ${activeTab}`);
   }
 
 }
