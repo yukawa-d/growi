@@ -24,7 +24,7 @@ const KEYS_FOR_SAML_USE_ONLY_ENV_OPTION = [
   'security:passport-saml:ABLCRule',
 ];
 
-const KEYS_FOR_GCP_USE_ONLY_ENV_OPTION = [
+const KEYS_FOR_GCS_USE_ONLY_ENV_OPTION = [
   'gcs:apiKeyJsonPath',
   'gcs:bucket',
   'gcs:uploadNamespace',
@@ -224,10 +224,10 @@ class ConfigManager extends S2sMessageHandlable {
         KEYS_FOR_SAML_USE_ONLY_ENV_OPTION.includes(key)
         && this.defaultSearch('crowi', 'security:passport-saml:useOnlyEnvVarsForSomeOptions')
       )
-      // gcp option
+      // gcs option
       || (
-        KEYS_FOR_GCP_USE_ONLY_ENV_OPTION.includes(key)
-        && this.searchOnlyFromEnvVarConfigs('crowi', 'gcs:isGcpEnvPrioritizes')
+        KEYS_FOR_GCS_USE_ONLY_ENV_OPTION.includes(key)
+        && this.searchOnlyFromEnvVarConfigs('crowi', 'gcs:isGcsEnvPrioritizes')
       )
     ));
   }
