@@ -90,7 +90,7 @@ html[light] {
   $color-editor-icons: $color-global;
 
   // Border colors
-  $border-color-theme: blue;
+  $border-color-theme: blue; //test
   $bordercolor-inline-code: $gray-400; // optional
 
   // Dropdown colors
@@ -169,9 +169,9 @@ html[dark] {
   $bgcolor-subnav: lighten($bgcolor-global, 4%); // optional
 
   // Tabs
-  $bordercolor-nav-tabs: $gray-700; // optional
+  $bordercolor-nav-tabs: green; // optional
   // $color-nav-tabs-link-active: #; //optional
-  $bordercolor-nav-tabs-hover: #666 #666 $bordercolor-nav-tabs; // optional
+  // $bordercolor-nav-tabs-hover: #666 #666 $bordercolor-nav-tabs; // optional
   // $bordercolor-nav-tabs-active: # # $bgcolor-global; // optional
 
   // Tags

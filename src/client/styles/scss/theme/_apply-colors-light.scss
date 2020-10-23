@@ -8,7 +8,7 @@ $bgcolor-list-active: $primary !default;
 $bgcolor-subnav: darken($bgcolor-global, 3%) !default;
 $color-table: $color-global !default;
 $bgcolor-table: null !default;
-$border-color-table: $gray-200 !default;
+$border-color-table: green !default; //test　$border-color-weak
 $color-table-hover: $color-table !default;
 $bgcolor-table-hover: rgba(black, 0.075) !default;
 $bgcolor-sidebar-list-group: $bgcolor-list !default;
@@ -133,6 +133,10 @@ $table-hover-bg: $bgcolor-table-hover;
  */
 .grw-subnav {
   background-color: $bgcolor-subnav;
+  ul,
+  li {
+    border-color: blue !important;
+  }
 }
 
 .grw-subnav-fixed-container .grw-subnav {
@@ -238,9 +242,18 @@ $table-hover-bg: $bgcolor-table-hover;
 }
 
 .top-of-table-contents {
-  border-color: $border-color;
+  border-color: $border-color-weak;
 
   .grw-seen-user-list {
-    border-color: $border-color;
+    border-color: $border-color-weak;
+  }
+}
+
+// override-codemirror day-theme
+
+.CodeMirror {
+  .CodeMirror-gutters {
+    background-color: $gray-50;
+    border-right-color: $border-color;
   }
 }
