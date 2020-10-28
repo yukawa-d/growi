@@ -39,30 +39,29 @@ export default class PageContainer extends Container {
 
     const revisionId = mainContent.getAttribute('data-page-revision-id');
     const path = decodeURI(mainContent.getAttribute('data-path'));
+
     this.state = {
       // local page data
       markdown: null, // will be initialized after initStateMarkdown()
       pageId: mainContent.getAttribute('data-page-id'),
       revisionId,
       revisionCreatedAt: +mainContent.getAttribute('data-page-revision-created'),
-      revisionAuthor: JSON.parse(mainContent.getAttribute('data-page-revision-author')),
       path,
       tocHtml: '',
-      isLiked: JSON.parse(mainContent.getAttribute('data-page-is-liked')),
-
-      seenUserIds: mainContent.getAttribute('data-page-ids-of-seen-users'),
+      isLiked: false,
+      isBookmarked: false,
       seenUsers: [],
       countOfSeenUsers: mainContent.getAttribute('data-page-count-of-seen-users'),
 
       likerUsers: [],
       sumOfLikers: 0,
-
+      sumOfBookmarks: 0,
       createdAt: mainContent.getAttribute('data-page-created-at'),
-      creator: JSON.parse(mainContent.getAttribute('data-page-creator')),
       updatedAt: mainContent.getAttribute('data-page-updated-at'),
       isForbidden:  JSON.parse(mainContent.getAttribute('data-page-is-forbidden')),
       isDeleted:  JSON.parse(mainContent.getAttribute('data-page-is-deleted')),
       isDeletable:  JSON.parse(mainContent.getAttribute('data-page-is-deletable')),
+      isCreatable: JSON.parse(mainContent.getAttribute('data-page-is-creatable')),
       isAbleToDeleteCompletely:  JSON.parse(mainContent.getAttribute('data-page-is-able-to-delete-completely')),
       pageUser: JSON.parse(mainContent.getAttribute('data-page-user')),
       tags: null,
@@ -74,11 +73,25 @@ export default class PageContainer extends Container {
       // latest(on remote) information
       remoteRevisionId: revisionId,
       revisionIdHackmdSynced: mainContent.getAttribute('data-page-revision-id-hackmd-synced') || null,
-      lastUpdateUsername: undefined,
+      lastUpdateUsername: mainContent.getAttribute('data-page-last-update-username') || null,
       pageIdOnHackmd: mainContent.getAttribute('data-page-id-on-hackmd') || null,
       hasDraftOnHackmd: !!mainContent.getAttribute('data-page-has-draft-on-hackmd'),
       isHackmdDraftUpdatingInRealtime: false,
     };
+
+    // parse creator, lastUpdateUser and revisionAuthor
+    try {
+      this.state.creator = JSON.parse(mainContent.getAttribute('data-page-creator'));
+    }
+    catch (e) {
+      logger.warn('The data of \'data-page-creator\' is invalid', e);
+    }
+    try {
+      this.state.revisionAuthor = JSON.parse(mainContent.getAttribute('data-page-revision-author'));
+    }
+    catch (e) {
+      logger.warn('The data of \'data-page-revision-author\' is invalid', e);
+    }
 
     const { interceptorManager } = this.appContainer;
     interceptorManager.addInterceptor(new DetachCodeBlockInterceptor(appContainer), 10); // process as soon as possible
@@ -141,20 +154,43 @@ export default class PageContainer extends Container {
 
   async initStateOthers() {
 
-    const likerListElem = document.getElementById('liker-list');
-    if (likerListElem != null) {
-      const { userIdsStr, sumOfLikers } = likerListElem.dataset;
-      this.setState({ sumOfLikers });
+    this.retrieveLikeInfo();
+    this.retrieveBookmarkInfo();
+    this.checkAndUpdateImageUrlCached(this.state.likerUsers);
+  }
 
-      if (userIdsStr === '') {
-        return;
-      }
+  async retrieveLikeInfo() {
+    const like = await this.appContainer.apiv3Get('/page/like-info', { _id: this.state.pageId });
+    this.setState({
+      sumOfLikers: like.data.sumOfLikers,
+      likerUsers: like.data.users.liker,
+      isLiked: like.data.isLiked,
+    });
+  }
 
-      const { users } = await this.appContainer.apiGet('/users.list', { user_ids: userIdsStr });
-      this.setState({ likerUsers: users });
+  async toggleLike() {
+    const bool = !this.state.isLiked;
+    await this.appContainer.apiv3Put('/page/likes', { pageId: this.state.pageId, bool });
+    this.setState({ isLiked: bool });
 
-      this.checkAndUpdateImageUrlCached(users);
+    return this.retrieveLikeInfo();
+  }
+
+  async retrieveBookmarkInfo() {
+    const response = await this.appContainer.apiv3Get('/bookmarks', { pageId: this.state.pageId });
+    if (response.data.bookmarks != null) {
+      this.setState({ isBookmarked: true });
     }
+    else {
+      this.setState({ isBookmarked: false });
+    }
+    this.setState({ sumOfBookmarks: response.data.sumOfBookmarks });
+  }
+
+  async toggleBookmark() {
+    const bool = !this.state.isBookmarked;
+    await this.appContainer.apiv3Put('/bookmarks', { pageId: this.state.pageId, bool });
+    return this.retrieveBookmarkInfo();
   }
 
   async checkAndUpdateImageUrlCached(users) {
@@ -483,6 +519,10 @@ export default class PageContainer extends Container {
       }
     });
 
+  }
+
+  /* TODO GW-325 */
+  retrieveMyBookmarkList() {
   }
 
 }
