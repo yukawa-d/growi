@@ -22,7 +22,6 @@ import ThreeStrandedButton from './ThreeStrandedButton';
 
 import AuthorInfo from './AuthorInfo';
 import DrawerToggler from './DrawerToggler';
-import UserPicture from '../User/UserPicture';
 
 import PageManagement from '../Page/PageManagement';
 
@@ -65,7 +64,8 @@ const PagePathNav = ({ pageId, pagePath, isPageForbidden }) => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
+/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 const UserPagePathNav = ({ pageId, pagePath }) => {
   const linkedPagePath = new LinkedPagePath(pagePath);
   const latterLink = <PagePathHierarchicalLink linkedPagePath={linkedPagePath} />;
@@ -85,10 +85,11 @@ const UserPagePathNav = ({ pageId, pagePath }) => {
   );
 };
 
-/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 const UserInfo = ({ pageUser }) => {
   return (
     <div className="grw-users-info d-flex align-items-center">
+      {/* eslint-disable-next-line react/jsx-no-undef */}
       <UserPicture user={pageUser} />
 
       <div className="users-meta">
@@ -144,6 +145,8 @@ const GrowiSubNavigation = (props) => {
 
   const { currentUser } = appContainer;
   const isPageNotFound = pageId == null;
+  // Tags cannot be edited while the new page and editorMode is view
+  const isTagLabelHidden = (editorMode !== 'edit' && isPageNotFound);
   const isUserPage = pageUser != null;
   const isPageInTrash = isTrashPage(path);
 
@@ -163,23 +166,12 @@ const GrowiSubNavigation = (props) => {
         ) }
 
         <div className="grw-path-nav-container">
-          { !isCompactMode && !isPageNotFound && !isPageForbidden && !isUserPage && (
+          { !isCompactMode && !isTagLabelHidden && !isPageForbidden && !isUserPage && (
             <div className="mb-2">
-              <TagLabels />
+              <TagLabels editorMode={editorMode} />
             </div>
           ) }
-
-          { isUserPage
-            ? (
-              <>
-                <UserPagePathNav pageId={pageId} pagePath={path} />
-                <UserInfo pageUser={pageUser} />
-              </>
-            )
-            : (
-              <PagePathNav pageId={pageId} pagePath={path} isPageForbidden={isPageForbidden} />
-            )
-          }
+          <PagePathNav pageId={pageId} pagePath={path} isPageForbidden={isPageForbidden} />
 
         </div>
       </div>
@@ -193,7 +185,7 @@ const GrowiSubNavigation = (props) => {
             { !isPageNotFound && !isPageForbidden && <PageManagement /> }
           </div>
           <div className="mt-2">
-            { !isCreatable && !isPageInTrash
+            { !isCreatable && !isPageInTrash && !isPageForbidden
             && (
             <ThreeStrandedButton
               onThreeStrandedButtonClicked={onThreeStrandedButtonClicked}
