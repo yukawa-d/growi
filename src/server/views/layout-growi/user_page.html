@@ -6,41 +6,44 @@
 {% endblock %}
 
 {% block content_main %}
-  <div class="border-bottom pb-2">
-    <div class="user-info" id="user-info">
+  <div class="row">
+    <div class="col-12 border-bottom pb-2">
+      <div class="user-info" id="user-info">
+      </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row">
+      <div class="grw-page-content-container flex-grow-1 col-9">
 
-  <div class="d-flex justify-content-between">
-    <div class="grw-page-content-container flex-grow-1">
+        {#
+          #   Because this block has content like 'Bookmarks' or 'Recent Created' whose height changes dynamically,
+          #   setting of 'revision-toc' (affix) is hindered.
+          #}
+        <div class="mb-5 user-page-content-container d-edit-none d-print-none">
+        </div>
 
-      {#
-        #   Because this block has content like 'Bookmarks' or 'Recent Created' whose height changes dynamically,
-        #   setting of 'revision-toc' (affix) is hindered.
-        #}
-      <div class="mb-5 user-page-content-container d-edit-none d-print-none">
-      </div>
+        {% block content_main_before %}
+          {% parent %}
+        {% endblock %}
 
-      {% block content_main_before %}
-        {% parent %}
-      {% endblock %}
+        {% include '../widget/page_content.html' %}
 
-      {% include '../widget/page_content.html' %}
+        {# force remove #revision-toc from #content_main of parent #}
+        <script>
+          $('#revision-toc').remove();
+        </script>
 
-      {# force remove #revision-toc from #content_main of parent #}
-      <script>
-        $('#revision-toc').remove();
-      </script>
+      </div> {# /.col- #}
 
-    </div> {# /.col- #}
+      {# relocate #revision-toc #}
+      <div class="d-none d-lg-block revision-toc-container col-3">
+        <div id="revision-toc" class="revision-toc mt-3 sps sps--abv" data-sps-offset="116">
+          <div id="revision-toc-content" class="revision-toc-content"></div>
+        </div>
+      </div> {# /.col- #}
 
-    {# relocate #revision-toc #}
-    <div class="d-none d-lg-block revision-toc-container">
-      <div id="revision-toc" class="revision-toc mt-3 sps sps--abv" data-sps-offset="116">
-        <div id="revision-toc-content" class="revision-toc-content"></div>
-      </div>
-    </div> {# /.col- #}
-
+    </div>
   </div>
 
 
