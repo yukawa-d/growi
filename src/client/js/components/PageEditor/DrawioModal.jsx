@@ -82,7 +82,9 @@ class DrawioModal extends React.PureComponent {
             font-size: 8pt !important;
           }
           `,
-          customFonts: ['Lato', 'Charter'],
+          showStartScreen: false,
+          defaultFonts: ['メイリオ', 'ＭＳ Ｐゴシック', 'ＭＳ Ｐ明朝', 'BIZ UDPゴシック', 'BIZ UDP明朝', 'Helvetica', 'Verdana', 'Times New Roman',
+                         'Garamond', 'Courier New', 'Georgia', 'Lucida Console', 'Tahoma'],
         },
       }), '*');
 
@@ -125,11 +127,12 @@ class DrawioModal extends React.PureComponent {
     // refs: https://desk.draw.io/support/solutions/articles/16000042546-what-url-parameters-are-supported-
     url.searchParams.append('spin', 1);
     url.searchParams.append('embed', 1);
-    url.searchParams.append('lang', i18next.language);
+    url.searchParams.append('lang', i18next.language.substr(0, 2));
     url.searchParams.append('ui', 'atlas');
     url.searchParams.append('configure', 1);
+    url.searchParams.append('plugins', 1);
 
-    return url;
+    return `${url}&p=anim;anon;flow;sql;svgdata;tags;tips;trees;webcola`;
   }
 
   render() {
